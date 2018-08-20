@@ -8,6 +8,8 @@ ENV NGINX_VERSION nginx-1.13.6
 ENV OPENRESTY_VERSION openresty-1.13.6.2
 
 RUN apk --update add git openssl-dev pcre-dev zlib-dev perl curl sed build-base && \
+	addgroup -S nginx && \
+	adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx && \
     mkdir -p /tmp/src && \
     cd /tmp/src && \
     curl -fSL https://openresty.org/download/${OPENRESTY_VERSION}.tar.gz -o nginx.tar.gz && \
@@ -18,6 +20,8 @@ RUN apk --update add git openssl-dev pcre-dev zlib-dev perl curl sed build-base 
     sed -i 's/1.13.6/x/g' bundle/${NGINX_VERSION}/src/core/nginx.h && \
     sed -i 's/\"openresty\/\" NGINX_VERSION \".2\"/\"web\/\" NGINX_VERSION/g' bundle/${NGINX_VERSION}/src/core/nginx.h && \
     ./configure \
+        --user=nginx \
+		--group=nginx \
         --with-http_ssl_module \
         --with-http_gzip_static_module \
         --with-http_stub_status_module \
