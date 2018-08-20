@@ -40,13 +40,13 @@ RUN apk --update add git openssl-dev pcre-dev zlib-dev perl curl sed build-base 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
-COPY nginx.conf /etc/openresty/nginx/nginx.conf
-COPY nginx.vh.default.conf /etc/openresty/nginx/conf.d/default.conf
+COPY nginx.conf /etc/openresty/nginx/conf/nginx.conf
+COPY nginx.vh.default.conf /etc/openresty/nginx/conf/default.conf
 
 VOLUME ["/var/log/nginx"]
 
 WORKDIR /etc/openresty
 
-EXPOSE 80 443
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

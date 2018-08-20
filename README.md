@@ -19,8 +19,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./conf/conf.d:/etc/openresty/nginx/conf.d
-      - ./conf/nginx.conf:/etc/openresty/nginx/nginx.conf
+      - ./conf/conf.d:/etc/openresty/nginx/conf/conf.d
+      - ./conf/nginx.conf:/etc/openresty/nginx/conf/nginx.conf
       - ./log:/var/log/nginx
     networks:
       - code-network-openresty
