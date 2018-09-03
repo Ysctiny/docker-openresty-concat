@@ -16,6 +16,7 @@ RUN apk --update add git openssl-dev pcre-dev zlib-dev perl curl sed build-base 
     tar -zxvf nginx.tar.gz && \
     rm -rf nginx.tar.gz && \
     git clone git://github.com/alibaba/nginx-http-concat.git /tmp/src/nginx-http-concat && \
+    sed -i '/ngx_string("application\/x-javascript"),/a\    ngx_string("application\/javascript"),'  /tmp/src/nginx-http-concat/ngx_http_concat_module.c && \
     cd /tmp/src/${OPENRESTY_VERSION} && \
     sed -i 's/1.13.6/x/g' bundle/${NGINX_VERSION}/src/core/nginx.h && \
     sed -i 's/\"openresty\/\" NGINX_VERSION \".2\"/\"web\/\" NGINX_VERSION/g' bundle/${NGINX_VERSION}/src/core/nginx.h && \
